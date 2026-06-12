@@ -20,7 +20,7 @@ export function InvitationSection() {
   ]
 
   return (
-    <section className="px-container-margin mb-section-gap pt-section-gap">
+    <section id="invitation" className="px-container-margin mb-section-gap pt-section-gap scroll-mt-24">
       <div className={`${CONTENT_WIDTH} space-y-section-gap`}>
         <RevealOnScroll>
           <div className="text-center bg-surface-container-low p-10 rounded-lg archival-border">

@@ -41,8 +41,7 @@ function InviteContent() {
   )
 
   const handleEnter = useCallback(() => {
-    setActiveSection('gallery')
-    scrollTo('gallery')
+    scrollTo('invitation')
   }, [scrollTo])
 
   const handleOpenGuestbook = useCallback(() => {

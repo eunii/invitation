@@ -81,6 +81,7 @@
 
   .credits-scroll-panel {
     scroll-behavior: auto;
+    overscroll-behavior-y: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;

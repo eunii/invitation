@@ -147,7 +147,22 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
 
     const onUserIntent = () => stopAuto()
 
-    el.addEventListener('wheel', onUserIntent, { passive: true })
+    const onWheel = (e: WheelEvent) => {
+      onUserIntent()
+
+      const maxScroll = el.scrollHeight - el.clientHeight
+      if (maxScroll <= 0) return
+
+      const atTop = el.scrollTop <= 0
+      const atBottom = el.scrollTop >= maxScroll - 1
+
+      if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+        window.scrollBy({ top: e.deltaY, left: 0 })
+        e.preventDefault()
+      }
+    }
+
+    el.addEventListener('wheel', onWheel, { passive: false })
     el.addEventListener('touchstart', onUserIntent, { passive: true })
     el.addEventListener('pointerdown', onUserIntent)
     el.addEventListener('keydown', onUserIntent)
@@ -157,7 +172,7 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
       resizeObserver.disconnect()
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
       clearRestartTimeout()
-      el.removeEventListener('wheel', onUserIntent)
+      el.removeEventListener('wheel', onWheel)
       el.removeEventListener('touchstart', onUserIntent)
       el.removeEventListener('pointerdown', onUserIntent)
       el.removeEventListener('keydown', onUserIntent)
@@ -181,7 +196,7 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
       <div ref={shellRef} className="credits-scroll-shell relative w-full z-10">
         <div
           ref={containerRef}
-          className="credits-scroll-panel h-[58vh] min-h-[380px] w-full overflow-y-auto overscroll-contain"
+          className="credits-scroll-panel h-[58vh] min-h-[380px] w-full overflow-y-auto"
           tabIndex={0}
           aria-label={ui.credits.panelLabel}
         >
