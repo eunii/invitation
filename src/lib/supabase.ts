@@ -1,19 +1,55 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import type { GuestbookEntry, GuestbookInsert } from '../types/guestbook'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL?.trim() ?? ''
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() ?? ''
 
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey)
+const PLACEHOLDER_MARKERS = ['your-project', 'your-anon-key', 'replace_me', 'changeme']
+
+function looksLikePlaceholder(value: string): boolean {
+  const lower = value.toLowerCase()
+  return PLACEHOLDER_MARKERS.some((marker) => lower.includes(marker))
+}
+
+function isValidSupabaseUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url)
+    return parsed.protocol === 'https:' && parsed.hostname.endsWith('.supabase.co')
+  } catch {
+    return false
+  }
+}
+
+function isValidAnonKey(key: string): boolean {
+  // Supabase anon key는 JWT 형태로 보통 100자 이상
+  return key.length >= 40 && !looksLikePlaceholder(key)
+}
+
+export const isSupabaseConfigured = Boolean(
+  supabaseUrl &&
+    supabaseAnonKey &&
+    isValidSupabaseUrl(supabaseUrl) &&
+    isValidAnonKey(supabaseAnonKey),
+)
+
+export type GuestbookStorageMode = 'supabase' | 'local'
+
+export const guestbookStorageMode: GuestbookStorageMode = isSupabaseConfigured ? 'supabase' : 'local'
 
 let client: SupabaseClient | null = null
 
 function getClient(): SupabaseClient | null {
   if (!isSupabaseConfigured) return null
   if (!client) {
-    client = createClient(supabaseUrl!, supabaseAnonKey!)
+    client = createClient(supabaseUrl, supabaseAnonKey)
   }
   return client
+}
+
+if (import.meta.env.DEV && supabaseUrl && !isSupabaseConfigured) {
+  console.warn(
+    '[guestbook] Supabase 설정이 비어 있거나 예시 값입니다. 브라우저 localStorage를 사용합니다.',
+  )
 }
 
 // Supabase 미설정 시 데모용 로컬 저장

@@ -1,6 +1,8 @@
 import { weddingConfig } from '../../config/wedding'
+import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import type { GuestbookEntry } from '../../types/guestbook'
 import { MaterialIcon } from '../ui/MaterialIcon'
+import { WeddingImage } from '../ui/WeddingImage'
 import { CreditsScroll } from './CreditsScroll'
 
 interface CreditsSectionProps {
@@ -16,8 +18,9 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
     <section id="guestbook" className="relative min-h-screen flex flex-col pt-24 pb-32 overflow-hidden scroll-mt-24">
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-        <img
-          src={creditsBgImage}
+        <WeddingImage
+          localBase={LOCAL_IMAGE_BASES.creditsBgImage}
+          fallback={creditsBgImage}
           alt=""
           className="w-full h-full object-cover grayscale opacity-40"
         />

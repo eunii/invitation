@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { weddingConfig } from '../../config/wedding'
+import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
+import { WeddingImage } from '../ui/WeddingImage'
 
 interface HeroSectionProps {
   onEnter: () => void
@@ -12,8 +14,9 @@ export function HeroSection({ onEnter }: HeroSectionProps) {
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-end items-center overflow-hidden scroll-mt-24">
       <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
+        <WeddingImage
+          localBase={LOCAL_IMAGE_BASES.heroImage}
+          fallback={heroImage}
           alt={`${couple.display} wedding`}
           className="w-full h-full object-cover grayscale-[20%] brightness-75 scale-110"
         />

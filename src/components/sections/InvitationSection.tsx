@@ -1,7 +1,9 @@
 import { useInviteVariant } from '../../context/InviteVariantContext'
 import { weddingConfig } from '../../config/wedding'
+import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
+import { WeddingImage } from '../ui/WeddingImage'
 
 export function InvitationSection() {
   const variant = useInviteVariant()
@@ -12,10 +14,11 @@ export function InvitationSection() {
     <section className="px-container-margin mb-section-gap pt-section-gap">
       <RevealOnScroll>
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg mb-section-gap">
-          <img
-            src={cinematicImage}
+          <WeddingImage
+            localBase={LOCAL_IMAGE_BASES.cinematicImage}
+            fallback={cinematicImage}
             alt="Wedding invitation"
-            className="w-full h-full object-cover grayscale-[20%] brightness-75 hover:scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover grayscale-[20%] brightness-75"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex flex-col justify-end p-8">
             <p className="font-label-md text-label-md text-secondary-fixed uppercase tracking-[0.2em] mb-2">

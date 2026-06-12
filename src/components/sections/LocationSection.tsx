@@ -1,6 +1,8 @@
 import { weddingConfig } from '../../config/wedding'
+import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
+import { WeddingImage } from '../ui/WeddingImage'
 
 export function LocationSection() {
   const { venue, mapImage } = weddingConfig
@@ -15,8 +17,9 @@ export function LocationSection() {
             rel="noopener noreferrer"
             className="relative aspect-square rounded-lg overflow-hidden bg-surface-dim group"
           >
-            <img
-              src={mapImage}
+            <WeddingImage
+              localBase={LOCAL_IMAGE_BASES.mapImage}
+              fallback={mapImage}
               alt="Venue map"
               className="w-full h-full object-cover grayscale-[0.8] contrast-[1.1] group-hover:grayscale-0 transition-all duration-700"
             />

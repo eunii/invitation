@@ -1,8 +1,32 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { weddingConfig } from '../../config/wedding'
+import { useResolvedImageSrc } from '../../hooks/useResolvedImageSrc'
+import { galleryLocalBase } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
+import { WeddingImage } from '../ui/WeddingImage'
+
+function GalleryModalImage({ index }: { index: number }) {
+  const fallback = weddingConfig.gallery[index]
+  const { src, onError } = useResolvedImageSrc(galleryLocalBase(index), fallback)
+
+  return (
+    <motion.img
+      key={index}
+      src={src}
+      alt={`Gallery ${index + 1}`}
+      className="no-zoom-image max-w-[92vw] max-h-[85vh] w-auto h-auto object-contain pointer-events-none select-none touch-manipulation"
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      draggable={false}
+      onError={onError}
+      onClick={(e) => e.stopPropagation()}
+    />
+  )
+}
 
 export function GallerySection() {
   const { gallery } = weddingConfig
@@ -46,19 +70,19 @@ export function GallerySection() {
         </div>
 
         <div className="grid grid-cols-3 gap-1 max-w-2xl mx-auto">
-          {gallery.map((src, i) => (
+          {gallery.map((fallback, i) => (
             <button
               key={i}
               type="button"
               onClick={() => setSelected(i)}
-              className="relative aspect-square overflow-hidden bg-surface-dim group"
+              className="relative aspect-square overflow-hidden bg-surface-dim"
               aria-label={`사진 ${i + 1} 보기`}
             >
-              <img
-                src={src}
+              <WeddingImage
+                localBase={galleryLocalBase(i)}
+                fallback={fallback}
                 alt={`Gallery ${i + 1}`}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                draggable={false}
+                className="w-full h-full object-cover"
               />
             </button>
           ))}
@@ -73,6 +97,7 @@ export function GallerySection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={close}
+            onTouchStart={preventPinch}
             onTouchMove={preventPinch}
           >
             <button
@@ -96,18 +121,7 @@ export function GallerySection() {
               <MaterialIcon icon="chevron_left" />
             </button>
 
-            <motion.img
-              key={selected}
-              src={gallery[selected]}
-              alt={`Gallery ${selected + 1}`}
-              className="max-w-[92vw] max-h-[85vh] w-auto h-auto object-contain pointer-events-none"
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              draggable={false}
-              onClick={(e) => e.stopPropagation()}
-            />
+            <GalleryModalImage index={selected} />
 
             <button
               type="button"
