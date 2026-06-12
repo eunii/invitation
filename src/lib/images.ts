@@ -1,3 +1,8 @@
+/** 빌드 시 public/images에 실제 이미지가 있을 때만 true */
+export function useLocalImages(): boolean {
+  return import.meta.env.VITE_HAS_LOCAL_IMAGES === 'true'
+}
+
 /** public/images/ 아래 파일명 (확장자 제외). 없으면 wedding.ts URL 사용 */
 export const LOCAL_IMAGE_BASES = {
   heroImage: 'hero',
