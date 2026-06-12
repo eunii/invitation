@@ -1,23 +1,23 @@
 export const weddingConfig = {
   couple: {
-    bride: 'Eunii',
-    groom: 'Partner',
-    display: 'Eunii & Partner',
+    bride: 'Json',
+    groom: 'Dani',
+    display: 'Dani & Json',
   },
   tagline: 'Our Story Begins Here.',
   subtitle: 'The Beginning of Our Story',
   date: {
-    display: 'January 2027',
-    full: 'Saturday, Jan 16, 2027',
-    time: 'Ceremony begins at 4:30 PM',
-    iso: '2027-01-16',
+    display: '2027. 01. 31. ',
+    full: '2027년 1월 31일 토요일',
+    time: '4:30 PM',
+    iso: '2027-01-31',
   },
   venue: {
-    name: 'The Celestial Pavilion',
-    address: '1200 Starlight Drive, Archival District',
-    location: 'Venice, Italy',
-    parking: 'Complimentary valet service from 4:00 PM. Secure overnight parking within the estate grounds.',
-    shuttle: 'Private shuttle every 20 minutes between The Grand Archival Hotel and the Pavilion (3:30–5:00 PM).',
+    name: '특별한 웨딩홀 무슨 방',
+    address: '서울시 강남구 강남길 어쩌구 어쩌구 홀',
+    location: '무슨 웨딩홀',
+    parking: '주차: 웨딩홀 지하 1·2층 무료 주차 (3시간). 만차 시 인근 공영주차장 이용 가능합니다.',
+    shuttle: '대중교통: 지하철 2호선 강남역 3번 출구 도보 5분. 셔틀버스는 강남역 4번 출구 앞 30분 간격 운행 (오후 2시~5시).',
     maps: {
       kakao: 'https://map.kakao.com',
       naver: 'https://map.naver.com',
@@ -64,14 +64,28 @@ export const weddingConfig = {
       ],
     },
   },
+  parents: {
+    groom: {
+      father: '홍길동',
+      mother: '김가나',
+    },
+    bride: {
+      father: '홍성일',
+      mother: '삼사오',
+    },
+  },
   invitation: {
     formal: {
       title: 'To Our Revered Elders',
-      text: '두 사람이 소중한 인연을 맺고 평생의 동반자가 되고자 합니다. 귀한 걸음으로 축복해주시면 감사하겠습니다.',
+      text: '두 사람이 소중한 인연을 맺고 평생의 동반자가 되고자 합니다.',
+      extra:
+        '귀한 걸음으로 축복해 주시면 더없는 기쁨으로 간직하겠습니다. 바쁘시겠지만 참석하시어 자리를 빛내 주시면 감사하겠습니다.',
     },
     casual: {
       title: 'To Our Dearest Friends',
       text: '드디어 결혼합니다. 저희의 새로운 시작을 함께 축하해 주세요.',
+      extra:
+        '서로가 곧 가장 가까운 사람이 되어, 사랑과 믿음으로 한 걸음씩 나아가려 합니다. 소중한 분들과 이 기쁜 순간을 나누고 싶습니다.',
     },
   },
   meta: {
@@ -81,7 +95,10 @@ export const weddingConfig = {
     ogDescription: 'Our Story Begins Here.',
   },
   ui: {
-    brandTitle: 'Our Story',
+    brandTitle: {
+      line1: 'wedding day',
+      line2: '',
+    },
     nav: {
       home: '홈',
       gallery: '갤러리',
@@ -93,13 +110,9 @@ export const weddingConfig = {
       whereLabel: 'Where',
       cta: 'Enter the Story',
     },
-    invitation: {
-      overlayLabel: 'The Invitation',
-      overlayTitle: 'Join our narrative.',
-    },
     gallery: {
       label: 'Gallery',
-      title: 'Our Moments',
+      title: '갤러리',
       viewPhoto: '사진 보기',
       close: '닫기',
       prev: '이전',
@@ -108,8 +121,6 @@ export const weddingConfig = {
     info: {
       whenLabel: 'When',
       whereLabel: 'Where',
-      journeyLabel: 'The Journey',
-      journeyChapter: 'Chapter 1 — The Beginning',
     },
     location: {
       mapsCta: 'Open in Maps',
@@ -117,8 +128,8 @@ export const weddingConfig = {
       kakaoMap: '카카오맵',
       naverMap: '네이버맵',
       googleMap: '구글맵',
-      parkingTitle: 'Arrival & Parking',
-      shuttleTitle: 'Transportation',
+      parkingTitle: '주차 안내',
+      shuttleTitle: '대중교통',
     },
     gift: {
       title: '마음 전하실 곳',
@@ -136,17 +147,13 @@ export const weddingConfig = {
       title: 'Guest Credits',
       submitButton: '축하 메시지 남기기',
       loading: '불러오는 중...',
-      specialThanks: 'Special Thanks',
-      scrolling: '크레딧이 올라가는 중… · 스크롤하면 직접 넘길 수 있어요',
-      scrollHint: '스크롤하여 크레딧을 직접 확인해보세요',
-      finished: 'The End — 행복한 결말을 함께해 주셔서 감사합니다',
-      panelLabel: '게스트 크레딧 목록',
+      panelLabel: 'Guest credits list',
       emptyTitle: '아직 축하 메시지를 남겨주신 분이 없습니다.',
       emptySubtitle: '첫 번째 축하를 남겨주세요 ✨',
       ending: {
-        prelude: 'Fin',
+        prelude: '끝',
         closing: '축하해주신 모든 분들 감사합니다',
-        theEnd: '— The End —',
+        theEnd: '— 끝 —',
         cheer: '앞으로도 많이 응원해주세요',
       },
     },
@@ -161,7 +168,7 @@ export const weddingConfig = {
       submitting: '전송 중...',
     },
     footer: {
-      title: 'Our Story',
+      brandTitle: 'wedding day',
       copyrightPrefix: '©',
       link: 'The End and The Beginning',
     },

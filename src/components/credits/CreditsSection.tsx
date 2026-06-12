@@ -47,12 +47,7 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
         {loading ? (
           <p className="font-body-md text-outline animate-pulse">{ui.credits.loading}</p>
         ) : (
-          <>
-            <div className="text-center mb-4 pointer-events-none">
-              <h3 className="font-label-md text-label-md text-secondary uppercase tracking-widest">{ui.credits.specialThanks}</h3>
-            </div>
-            <CreditsScroll entries={entries} />
-          </>
+          <CreditsScroll entries={entries} />
         )}
       </div>
     </section>

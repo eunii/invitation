@@ -9,8 +9,6 @@ import { GallerySection } from '../components/sections/GallerySection'
 import { GiftSection } from '../components/sections/GiftSection'
 import { HeroSection } from '../components/sections/HeroSection'
 import { InvitationSection } from '../components/sections/InvitationSection'
-import { LocationSection } from '../components/sections/LocationSection'
-import { WeddingInfoSection } from '../components/sections/WeddingInfoSection'
 import { InviteVariantProvider, type InviteVariant } from '../context/InviteVariantContext'
 import { useGuestbook } from '../hooks/useGuestbook'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -67,8 +65,6 @@ function InviteContent() {
       <main className="pb-16 md:pb-0">
         <InvitationSection />
         <GallerySection />
-        <WeddingInfoSection />
-        <LocationSection />
         <GiftSection />
         <CreditsSection
           entries={entries}
@@ -78,7 +74,9 @@ function InviteContent() {
       </main>
 
       <footer className="w-full py-section-gap bg-background border-t border-outline-variant/20 flex flex-col items-center space-y-unit mb-16 md:mb-0">
-        <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">{ui.footer.title}</h2>
+        <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-center lowercase italic text-primary">
+          {ui.footer.brandTitle}
+        </h2>
         <p className="font-caption text-caption text-secondary uppercase tracking-widest">
           {ui.footer.copyrightPrefix} {subtitle}
         </p>

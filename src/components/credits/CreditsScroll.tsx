@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { weddingConfig } from '../../config'
 
@@ -43,9 +43,7 @@ function CreditItem({ entry }: { entry: GuestbookEntry }) {
 
 
 function scrollDurationMs(entryCount: number): number {
-
-  return Math.min(36_000, Math.max(12_000, entryCount * 2_500 + 8_000))
-
+  return Math.min(27_000, Math.max(9_000, entryCount * 1_900 + 6_000))
 }
 
 
@@ -63,14 +61,12 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
   const { ui } = weddingConfig
 
   const containerRef = useRef<HTMLDivElement>(null)
-
+  const shellRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<number | null>(null)
-
   const userControlRef = useRef(false)
+  const visibleRef = useRef(false)
+  const startedRef = useRef(false)
 
-  const [autoPlaying, setAutoPlaying] = useState(true)
-
-  const [finished, setFinished] = useState(false)
 
 
 
@@ -98,8 +94,6 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
 
     }
 
-    setAutoPlaying(false)
-
   }, [])
 
 
@@ -113,40 +107,17 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
 
 
     userControlRef.current = false
-
-    setAutoPlaying(true)
-
-    setFinished(false)
-
+    visibleRef.current = false
+    startedRef.current = false
     el.scrollTop = 0
 
-
-
-    let started = false
-
-
-
     const startAuto = () => {
-
-      if (started || userControlRef.current) return
-
-
+      if (startedRef.current || userControlRef.current || !visibleRef.current) return
 
       const maxScroll = el.scrollHeight - el.clientHeight
+      if (maxScroll <= 0) return
 
-      if (maxScroll <= 0) {
-
-        setFinished(true)
-
-        setAutoPlaying(false)
-
-        return
-
-      }
-
-
-
-      started = true
+      startedRef.current = true
 
       const duration = scrollDurationMs(sortedEntries.length)
 
@@ -174,10 +145,6 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
 
           frameRef.current = null
 
-          setFinished(true)
-
-          setAutoPlaying(false)
-
         }
 
       }
@@ -190,11 +157,22 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
 
 
 
-    const observer = new ResizeObserver(() => startAuto())
+    const shell = shellRef.current
+    if (!shell) return
 
-    observer.observe(el)
+    const intersectionObserver = new IntersectionObserver(
+      (observerEntries) => {
+        visibleRef.current = observerEntries.some((entry) => entry.isIntersecting)
+        if (visibleRef.current) startAuto()
+      },
+      { threshold: 0.35 },
+    )
+    intersectionObserver.observe(shell)
 
-    requestAnimationFrame(() => startAuto())
+    const resizeObserver = new ResizeObserver(() => {
+      if (visibleRef.current) startAuto()
+    })
+    resizeObserver.observe(el)
 
 
 
@@ -214,8 +192,8 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
 
     return () => {
 
-      observer.disconnect()
-
+      intersectionObserver.disconnect()
+      resizeObserver.disconnect()
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
 
       el.removeEventListener('wheel', onUserIntent)
@@ -260,7 +238,7 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
 
     <div className="w-full max-w-xl px-container-margin flex flex-col items-center">
 
-      <div className="credits-scroll-shell relative w-full z-10">
+      <div ref={shellRef} className="credits-scroll-shell relative w-full z-10">
 
         <div
 
@@ -291,20 +269,6 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
       </div>
 
 
-
-      <p
-
-        className={`font-caption text-caption mt-4 tracking-widest uppercase text-center ${
-
-          autoPlaying ? 'text-outline-variant animate-pulse' : 'text-secondary'
-
-        }`}
-
-      >
-
-        {autoPlaying ? ui.credits.scrolling : finished ? ui.credits.finished : ui.credits.scrollHint}
-
-      </p>
 
     </div>
 

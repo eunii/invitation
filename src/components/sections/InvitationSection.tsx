@@ -5,31 +5,22 @@ import { MaterialIcon } from '../ui/MaterialIcon'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
 import { WeddingImage } from '../ui/WeddingImage'
 
+const CONTENT_WIDTH = 'max-w-4xl mx-auto w-full'
+
 export function InvitationSection() {
   const variant = useInviteVariant()
-  const { invitation, cinematicImage, ui } = weddingConfig
+  const { couple, parents, invitation, date, venue, mapImage, ui } = weddingConfig
   const content = variant === 'parents' ? invitation.formal : invitation.casual
+
+  const mapLinks = [
+    { label: ui.location.kakaoMap, url: venue.maps.kakao },
+    { label: ui.location.naverMap, url: venue.maps.naver },
+    { label: ui.location.googleMap, url: venue.maps.google },
+  ]
 
   return (
     <section className="px-container-margin mb-section-gap pt-section-gap">
-      <RevealOnScroll>
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg mb-section-gap">
-          <WeddingImage
-            localBase={LOCAL_IMAGE_BASES.cinematicImage}
-            fallback={cinematicImage}
-            alt="Wedding invitation"
-            className="w-full h-full object-cover grayscale-[20%] brightness-75"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex flex-col justify-end p-8">
-            <p className="font-label-md text-label-md text-secondary-fixed uppercase tracking-[0.2em] mb-2">
-              {ui.invitation.overlayLabel}
-            </p>
-            <h2 className="font-display-md text-display-md text-white">{ui.invitation.overlayTitle}</h2>
-          </div>
-        </div>
-      </RevealOnScroll>
-
-      <div className="max-w-4xl mx-auto">
+      <div className={`${CONTENT_WIDTH} space-y-section-gap`}>
         <RevealOnScroll>
           <div className="text-center bg-surface-container-low p-10 rounded-lg archival-border">
             <MaterialIcon icon="menu_book" className="text-secondary mb-4" />
@@ -37,6 +28,117 @@ export function InvitationSection() {
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed italic">
               {content.text}
             </p>
+            {content.extra && (
+              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mt-6">
+                {content.extra}
+              </p>
+            )}
+          </div>
+        </RevealOnScroll>
+
+        <RevealOnScroll>
+          <div className="text-center space-y-4 py-4">
+            <p className="font-body-lg text-body-lg text-primary tracking-wide">
+              <span className="text-on-surface-variant">{parents.groom.father}</span>
+              <span className="mx-2 text-outline-variant">|</span>
+              <span>{parents.groom.mother}의 아들</span>
+              <span className="ml-2 font-bold">{couple.groom}</span>
+            </p>
+            <p className="font-body-lg text-body-lg text-primary tracking-wide">
+              <span className="text-on-surface-variant">{parents.bride.father}</span>
+              <span className="mx-2 text-outline-variant">|</span>
+              <span>{parents.bride.mother}의 딸</span>
+              <span className="ml-2 font-bold">{couple.bride}</span>
+            </p>
+          </div>
+        </RevealOnScroll>
+
+        <RevealOnScroll>
+          <div className="text-center space-y-10">
+            <div className="grid md:grid-cols-2 gap-10 md:gap-12 text-center md:text-left">
+              <div className="space-y-4">
+                <p className="font-label-md text-label-md text-secondary uppercase tracking-widest">
+                  {ui.info.whenLabel}
+                </p>
+                <h4 className="font-headline-lg text-headline-lg text-primary">{date.full}</h4>
+                <p className="font-body-md text-body-md text-outline">{date.time}</p>
+              </div>
+              <div className="space-y-4 md:border-l md:border-outline-variant/30 md:pl-12">
+                <p className="font-label-md text-label-md text-secondary uppercase tracking-widest">
+                  {ui.info.whereLabel}
+                </p>
+                <h4 className="font-headline-lg text-headline-lg text-primary">{venue.name}</h4>
+                <p className="font-body-md text-body-md text-outline leading-relaxed">{venue.address}</p>
+              </div>
+            </div>
+
+            <div className="space-y-8 text-center">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center gap-3">
+                  <MaterialIcon icon="location_on" className="text-secondary" />
+                  <h5 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
+                    {ui.location.directionsTitle}
+                  </h5>
+                </div>
+                <div className="flex flex-wrap justify-center gap-3">
+                  {mapLinks.map((map) => (
+                    <a
+                      key={map.label}
+                      href={map.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-5 py-2.5 border border-outline-variant font-label-md text-label-md rounded hover:bg-surface-variant transition-colors"
+                    >
+                      {map.label}
+                    </a>
+                  ))}
+                </div>
+                <a
+                  id="map"
+                  href={venue.maps.google}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative block aspect-[4/3] mt-4 rounded-lg overflow-hidden bg-surface-dim group scroll-mt-24"
+                >
+                  <WeddingImage
+                    localBase={LOCAL_IMAGE_BASES.mapImage}
+                    fallback={mapImage}
+                    alt="오시는 길 지도"
+                    className="w-full h-full object-cover grayscale-[0.8] contrast-[1.1] group-hover:grayscale-0 transition-all duration-700"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="bg-white/90 px-5 py-3 rounded shadow-sm border border-outline-variant/30 text-center">
+                      <MaterialIcon icon="location_on" className="text-secondary" />
+                      <p className="font-label-md text-label-md text-primary mt-1">{ui.location.mapsCta}</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center justify-center gap-3">
+                  <MaterialIcon icon="directions_car" className="text-secondary" />
+                  <h5 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
+                    {ui.location.parkingTitle}
+                  </h5>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  {venue.parking}
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center justify-center gap-3">
+                  <MaterialIcon icon="local_taxi" className="text-secondary" />
+                  <h5 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
+                    {ui.location.shuttleTitle}
+                  </h5>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  {venue.shuttle}
+                </p>
+              </div>
+            </div>
           </div>
         </RevealOnScroll>
       </div>

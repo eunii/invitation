@@ -1,4 +1,5 @@
 import { weddingConfig } from '../../config'
+import { BrandTitle } from '../ui/BrandTitle'
 import { MaterialIcon } from '../ui/MaterialIcon'
 
 export type SectionId = 'home' | 'gallery' | 'map' | 'guestbook'
@@ -25,7 +26,7 @@ export function Header({ active, onNavigate, onOpenGuestbook }: HeaderProps) {
         className="flex items-center gap-2"
       >
         <MaterialIcon icon="auto_awesome" className="text-secondary" />
-        <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">{ui.brandTitle}</h1>
+        <BrandTitle as="h1" inline className="font-headline-lg-mobile text-headline-lg-mobile" />
       </button>
 
       <nav className="hidden md:flex gap-gutter">
