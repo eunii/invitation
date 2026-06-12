@@ -22,6 +22,7 @@ export function WeddingImage({
   return (
     <img
       {...props}
+      key={src}
       src={src}
       alt={alt}
       draggable={draggable}

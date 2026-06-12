@@ -13,7 +13,7 @@ function GalleryModalImage({ index }: { index: number }) {
 
   return (
     <motion.img
-      key={index}
+      key={`${index}-${src}`}
       src={src}
       alt={`Gallery ${index + 1}`}
       className="no-zoom-image max-w-[92vw] max-h-[85vh] w-auto h-auto object-contain pointer-events-none select-none touch-manipulation"
