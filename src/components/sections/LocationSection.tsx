@@ -1,11 +1,11 @@
-import { weddingConfig } from '../../config/wedding'
+import { weddingConfig } from '../../config'
 import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
 import { WeddingImage } from '../ui/WeddingImage'
 
 export function LocationSection() {
-  const { venue, mapImage } = weddingConfig
+  const { venue, mapImage, ui } = weddingConfig
 
   return (
     <section id="map" className="px-container-margin mt-section-gap max-w-6xl mx-auto scroll-mt-24">
@@ -26,7 +26,7 @@ export function LocationSection() {
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="bg-white/90 px-6 py-4 rounded shadow-sm border border-outline-variant/30 text-center">
                 <MaterialIcon icon="location_on" className="text-secondary" />
-                <p className="font-label-md text-label-md text-primary mt-1">Open in Maps</p>
+                <p className="font-label-md text-label-md text-primary mt-1">{ui.location.mapsCta}</p>
               </div>
             </div>
           </a>
@@ -35,13 +35,13 @@ export function LocationSection() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <MaterialIcon icon="location_on" className="text-secondary" />
-                <h5 className="font-headline-lg-mobile text-headline-lg-mobile">오시는 길</h5>
+                <h5 className="font-headline-lg-mobile text-headline-lg-mobile">{ui.location.directionsTitle}</h5>
               </div>
               <div className="flex flex-wrap gap-3">
                 {[
-                  { label: '카카오맵', url: venue.maps.kakao },
-                  { label: '네이버맵', url: venue.maps.naver },
-                  { label: '구글맵', url: venue.maps.google },
+                  { label: ui.location.kakaoMap, url: venue.maps.kakao },
+                  { label: ui.location.naverMap, url: venue.maps.naver },
+                  { label: ui.location.googleMap, url: venue.maps.google },
                 ].map((map) => (
                   <a
                     key={map.label}
@@ -59,7 +59,7 @@ export function LocationSection() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <MaterialIcon icon="directions_car" className="text-secondary" />
-                <h5 className="font-headline-lg-mobile text-headline-lg-mobile">Arrival & Parking</h5>
+                <h5 className="font-headline-lg-mobile text-headline-lg-mobile">{ui.location.parkingTitle}</h5>
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                 {venue.parking}
@@ -69,7 +69,7 @@ export function LocationSection() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <MaterialIcon icon="local_taxi" className="text-secondary" />
-                <h5 className="font-headline-lg-mobile text-headline-lg-mobile">Transportation</h5>
+                <h5 className="font-headline-lg-mobile text-headline-lg-mobile">{ui.location.shuttleTitle}</h5>
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                 {venue.shuttle}

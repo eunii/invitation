@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { weddingConfig } from '../../config'
 import type { GuestbookEntry } from '../../types/guestbook'
 
 interface CreditsScrollProps {
@@ -32,6 +33,8 @@ function CreditsSet({ items }: { items: LoopedEntry[] }) {
 
 /** 한 세트가 충분히 길어지도록 반복 — 짧은 목록에서도 끊김 없이 롤링 */
 function buildLoopSet(entries: GuestbookEntry[], minItems = 18): LoopedEntry[] {
+  if (entries.length === 0) return []
+
   const repeat = Math.max(1, Math.ceil(minItems / entries.length))
   return Array.from({ length: repeat }, (_, repeatIndex) =>
     entries.map((entry, entryIndex) => ({
@@ -42,7 +45,11 @@ function buildLoopSet(entries: GuestbookEntry[], minItems = 18): LoopedEntry[] {
 }
 
 export function CreditsScroll({ entries }: CreditsScrollProps) {
-  const loopSet = useMemo(() => buildLoopSet(entries), [entries])
+  const { ui } = weddingConfig
+  const loopSet = useMemo(
+    () => (entries.length === 0 ? [] : buildLoopSet(entries)),
+    [entries],
+  )
   const [paused, setPaused] = useState(false)
 
   useEffect(() => {
@@ -64,12 +71,8 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
   if (entries.length === 0) {
     return (
       <div className="text-center py-16">
-        <p className="font-body-lg text-body-lg text-outline italic">
-          아직 크레딧에 이름을 남긴 분이 없습니다.
-        </p>
-        <p className="font-caption text-caption text-secondary mt-2">
-          첫 번째 등장인물이 되어주세요 ✨
-        </p>
+        <p className="font-body-lg text-body-lg text-outline italic">{ui.credits.emptyTitle}</p>
+        <p className="font-caption text-caption text-secondary mt-2">{ui.credits.emptySubtitle}</p>
       </div>
     )
   }
@@ -81,7 +84,7 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
       role="button"
       tabIndex={0}
       aria-pressed={paused}
-      aria-label={paused ? '방명록 롤링 재생' : '방명록 롤링 일시정지'}
+      aria-label={paused ? ui.credits.resumeLabel : ui.credits.pauseLabel}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()

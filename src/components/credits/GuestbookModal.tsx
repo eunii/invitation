@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { weddingConfig } from '../../config'
 import { MaterialIcon } from '../ui/MaterialIcon'
 
 interface GuestbookModalProps {
@@ -10,6 +11,7 @@ interface GuestbookModalProps {
 }
 
 export function GuestbookModal({ open, onClose, onSubmit, submitting }: GuestbookModalProps) {
+  const { ui } = weddingConfig
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
 
@@ -42,10 +44,10 @@ export function GuestbookModal({ open, onClose, onSubmit, submitting }: Guestboo
             <div className="flex justify-between items-start mb-8">
               <div>
                 <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
-                  🎬 크레딧에 이름 남기기
+                  🎬 {ui.guestbook.title}
                 </h3>
                 <p className="font-caption text-caption text-secondary uppercase tracking-widest mt-1">
-                  Leave Your Blessing
+                  {ui.guestbook.subtitle}
                 </p>
               </div>
               <button type="button" onClick={onClose} className="text-outline hover:text-primary">
@@ -56,11 +58,11 @@ export function GuestbookModal({ open, onClose, onSubmit, submitting }: Guestboo
             <form className="space-y-8" onSubmit={handleSubmit}>
               <div>
                 <label className="block font-caption text-caption text-secondary uppercase tracking-widest mb-1">
-                  성함
+                  {ui.guestbook.nameLabel}
                 </label>
                 <input
                   className="input-underline font-body-lg text-primary placeholder:text-outline-variant/60"
-                  placeholder="성함을 입력해주세요"
+                  placeholder={ui.guestbook.namePlaceholder}
                   type="text"
                   required
                   maxLength={50}
@@ -70,11 +72,11 @@ export function GuestbookModal({ open, onClose, onSubmit, submitting }: Guestboo
               </div>
               <div>
                 <label className="block font-caption text-caption text-secondary uppercase tracking-widest mb-1">
-                  축하 메시지 (선택)
+                  {ui.guestbook.messageLabel}
                 </label>
                 <textarea
                   className="input-underline font-body-lg text-primary placeholder:text-outline-variant/60 resize-none"
-                  placeholder="따뜻한 한마디를 남겨주세요"
+                  placeholder={ui.guestbook.messagePlaceholder}
                   rows={4}
                   maxLength={500}
                   value={message}
@@ -86,7 +88,7 @@ export function GuestbookModal({ open, onClose, onSubmit, submitting }: Guestboo
                 disabled={submitting}
                 className="w-full bg-primary text-on-primary py-4 rounded-lg font-label-md text-label-md hover:opacity-90 transition-all celestial-glow disabled:opacity-50"
               >
-                {submitting ? '전송 중...' : '메시지 전송하기'}
+                {submitting ? ui.guestbook.submitting : ui.guestbook.submit}
               </button>
             </form>
           </motion.div>

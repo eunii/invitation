@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { weddingConfig } from '../../config/wedding'
+import { weddingConfig } from '../../config'
 import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
 import { WeddingImage } from '../ui/WeddingImage'
@@ -9,7 +9,7 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ onEnter }: HeroSectionProps) {
-  const { couple, subtitle, date, venue, heroImage } = weddingConfig
+  const { couple, subtitle, date, venue, heroImage, ui } = weddingConfig
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-end items-center overflow-hidden scroll-mt-24">
@@ -42,18 +42,18 @@ export function HeroSection({ onEnter }: HeroSectionProps) {
         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12 mt-unit">
           <div className="flex flex-col">
             <span className="font-caption text-caption text-secondary-fixed uppercase tracking-widest mb-1">
-              When
+              {ui.hero.whenLabel}
             </span>
-            <span className="font-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-white">
+            <span className="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-white">
               {date.display}
             </span>
           </div>
           <div className="hidden md:block w-px h-12 bg-outline-variant/30" />
           <div className="flex flex-col">
             <span className="font-caption text-caption text-secondary-fixed uppercase tracking-widest mb-1">
-              Where
+              {ui.hero.whereLabel}
             </span>
-            <span className="font-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-white">
+            <span className="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-white">
               {venue.location}
             </span>
           </div>
@@ -65,7 +65,7 @@ export function HeroSection({ onEnter }: HeroSectionProps) {
             onClick={onEnter}
             className="bg-white text-primary px-12 py-4 font-label-md text-label-md uppercase tracking-widest hover:bg-secondary-fixed transition-all duration-500 shadow-xl group relative overflow-hidden"
           >
-            Enter the Story
+            {ui.hero.cta}
             <MaterialIcon
               icon="arrow_forward"
               className="align-middle ml-2 group-hover:translate-x-1 transition-transform"

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { weddingConfig } from '../../config'
 
 export type BankAccount = {
   bank: string
@@ -11,6 +12,7 @@ async function copyToClipboard(text: string) {
 }
 
 export function AccountCard({ label, account }: { label: string; account: BankAccount }) {
+  const { ui } = weddingConfig
   const [revealed, setRevealed] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -38,11 +40,11 @@ export function AccountCard({ label, account }: { label: string; account: BankAc
               onClick={handleReveal}
               className="shrink-0 px-4 py-2 border border-outline-variant text-label-md rounded hover:bg-surface-variant transition-colors"
             >
-              보기
+              {ui.gift.reveal}
             </button>
           ) : (
             <span className="font-caption text-caption text-secondary shrink-0">
-              {copied ? '복사됨' : '표시됨'}
+              {copied ? ui.gift.copied : ui.gift.revealed}
             </span>
           )}
         </div>

@@ -1,4 +1,4 @@
-import { weddingConfig } from '../../config/wedding'
+import { weddingConfig } from '../../config'
 import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import type { GuestbookEntry } from '../../types/guestbook'
 import { MaterialIcon } from '../ui/MaterialIcon'
@@ -12,7 +12,7 @@ interface CreditsSectionProps {
 }
 
 export function CreditsSection({ entries, loading, onOpenModal }: CreditsSectionProps) {
-  const { creditsBgImage } = weddingConfig
+  const { creditsBgImage, ui } = weddingConfig
 
   return (
     <section id="guestbook" className="relative min-h-screen flex flex-col pt-24 pb-32 overflow-hidden scroll-mt-24">
@@ -29,9 +29,9 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
       <div className="relative z-10 px-container-margin flex justify-between items-center mb-8">
         <div className="text-center flex-1">
           <p className="font-caption text-caption text-secondary tracking-widest uppercase mb-2">
-            The Supporting Cast
+            {ui.credits.label}
           </p>
-          <h2 className="font-display-md text-display-md text-primary italic">Guest Credits</h2>
+          <h2 className="font-display-md text-display-md text-primary italic">{ui.credits.title}</h2>
         </div>
         <button
           type="button"
@@ -39,24 +39,24 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
           className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md hover:opacity-80 transition-opacity celestial-glow shrink-0"
         >
           <MaterialIcon icon="edit" className="text-[20px]" />
-          <span className="hidden sm:inline">크레딧에 이름 남기기</span>
+          <span className="hidden sm:inline">{ui.credits.submitButton}</span>
         </button>
       </div>
 
       <div className="relative z-10 flex-grow flex flex-col items-center">
         {loading ? (
-          <p className="font-body-md text-outline animate-pulse">불러오는 중...</p>
+          <p className="font-body-md text-outline animate-pulse">{ui.credits.loading}</p>
         ) : (
           <>
             <div className="text-center mb-4 pointer-events-none">
-              <h3 className="font-label-md text-label-md text-secondary uppercase tracking-widest">Special Thanks</h3>
+              <h3 className="font-label-md text-label-md text-secondary uppercase tracking-widest">{ui.credits.specialThanks}</h3>
             </div>
             <CreditsScroll entries={entries} />
             <div className="text-center mt-8 pointer-events-none">
               <p className="font-body-md text-body-md text-on-surface-variant italic">
-                Thank you for being
+                {ui.credits.thankYouLine1}
                 <br />
-                part of our story.
+                {ui.credits.thankYouLine2}
               </p>
             </div>
           </>

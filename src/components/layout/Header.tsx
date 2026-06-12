@@ -1,3 +1,4 @@
+import { weddingConfig } from '../../config'
 import { MaterialIcon } from '../ui/MaterialIcon'
 
 export type SectionId = 'home' | 'gallery' | 'map' | 'guestbook'
@@ -8,14 +9,14 @@ interface HeaderProps {
   onOpenGuestbook: () => void
 }
 
-const navItems: { id: SectionId; label: string }[] = [
-  { id: 'home', label: '홈' },
-  { id: 'gallery', label: '갤러리' },
-  { id: 'map', label: '맵' },
-  { id: 'guestbook', label: '방명록' },
-]
-
 export function Header({ active, onNavigate, onOpenGuestbook }: HeaderProps) {
+  const { ui } = weddingConfig
+  const navItems: { id: SectionId; label: string }[] = [
+    { id: 'home', label: ui.nav.home },
+    { id: 'gallery', label: ui.nav.gallery },
+    { id: 'map', label: ui.nav.map },
+    { id: 'guestbook', label: ui.nav.guestbook },
+  ]
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl flex justify-between items-center px-container-margin py-unit">
       <button
@@ -24,7 +25,7 @@ export function Header({ active, onNavigate, onOpenGuestbook }: HeaderProps) {
         className="flex items-center gap-2"
       >
         <MaterialIcon icon="auto_awesome" className="text-secondary" />
-        <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">Our Story</h1>
+        <h1 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">{ui.brandTitle}</h1>
       </button>
 
       <nav className="hidden md:flex gap-gutter">

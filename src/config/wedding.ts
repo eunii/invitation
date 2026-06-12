@@ -47,7 +47,6 @@ export const weddingConfig = {
     'https://lh3.googleusercontent.com/aida-public/AB6AXuAVXvGNsN_Jg9-BYqWDLx1j54MUAlmRgt43E46OljvJZLnghS8PGyHXsdUm0il7tQmaU2cTQUa3jWc1Maf-205FXaiWB2IGU6qD8j3jYK3pdCHHx17mucbbr6oLRc2oL5fXosaumwE0ZB15pKe5Zg57LhKcpIeRx0dUb1LJACJKXfx16CN0zUR-RS40JzTOZdxz8NKLEnx4lzwkgLQIhFoOrk2Tg0TPXf9W7CZbSSlCOOA1bKEXD4Af41_RR-kGtgmUVGcm0yOOZ54',
     'https://lh3.googleusercontent.com/aida-public/AB6AXuCy4WQpArBjVgFRjvu247_2xa7sRl8OxX4q_TXnG-KZch_FTGeBBGhed-vUZgV7AfqzxDK7CchW7_z9HAgx5ilcuYmeYapaMhPg9MWiJd-O4GsdkkoU3rcud633rjxy9kQtwfDXjtn-Ym2dhb44mJbza33KMokOP5F6fcc2x7zyEgK5lJnDA18Nmh8WlHPUVvc30sCPPp5fteJgk3BiYRAqjZJboUGT3gw4FdHKENcwWnlC9B7uUpoLfSGjeewgQGL9mRQp6m0hKsg',
     'https://lh3.googleusercontent.com/aida-public/AB6AXuBjfiJXFgTGo_CVzQpGt3xvctgCe46oSbtgb9JPblcLwi7TGEGE_Ve7qj5NJr8Gt77Wg9EMj5TY_8gyufriRRHDUzMRVyXFn7XG8-_LAsagBewEOT3KyAAdH1a3Txi34aUlRx8jPqdcWf-LSwOqIS9xk1ffyfoaYWTETsqmPnqOfdpqlRUetVbCxIcF9Q0drgz23i1mSEmqdOaMS3yws7WHrcGcdEvGIIky9NMfSpevhsogiRBkTItUiXwwJM7UcH9dJ7wz4K3Z0yE',
-
   ],
   accounts: {
     couple: {
@@ -75,4 +74,92 @@ export const weddingConfig = {
       text: '드디어 결혼합니다. 저희의 새로운 시작을 함께 축하해 주세요.',
     },
   },
+  meta: {
+    title: 'Eunii & Partner — Wedding Credits',
+    description: 'Eunii & Partner — Our Story Begins Here. 모바일 웨딩 청첩장.',
+    ogTitle: 'Eunii & Partner — Wedding Credits',
+    ogDescription: 'Our Story Begins Here.',
+  },
+  ui: {
+    brandTitle: 'Our Story',
+    nav: {
+      home: '홈',
+      gallery: '갤러리',
+      map: '맵',
+      guestbook: '방명록',
+    },
+    hero: {
+      whenLabel: 'When',
+      whereLabel: 'Where',
+      cta: 'Enter the Story',
+    },
+    invitation: {
+      overlayLabel: 'The Invitation',
+      overlayTitle: 'Join our narrative.',
+    },
+    gallery: {
+      label: 'Gallery',
+      title: 'Our Moments',
+      viewPhoto: '사진 보기',
+      close: '닫기',
+      prev: '이전',
+      next: '다음',
+    },
+    info: {
+      whenLabel: 'When',
+      whereLabel: 'Where',
+      journeyLabel: 'The Journey',
+      journeyChapter: 'Chapter 1 — The Beginning',
+    },
+    location: {
+      mapsCta: 'Open in Maps',
+      directionsTitle: '오시는 길',
+      kakaoMap: '카카오맵',
+      naverMap: '네이버맵',
+      googleMap: '구글맵',
+      parkingTitle: 'Arrival & Parking',
+      shuttleTitle: 'Transportation',
+    },
+    gift: {
+      title: '마음 전하실 곳',
+      description: '새로운 시작을 축복하며 보내주시는 따뜻한 마음 소중히 간직하겠습니다.',
+      groom: '신랑',
+      bride: '신부',
+      groomSide: '신랑측',
+      brideSide: '신부측',
+      reveal: '보기',
+      copied: '복사됨',
+      revealed: '표시됨',
+    },
+    credits: {
+      label: 'The Supporting Cast',
+      title: 'Guest Credits',
+      submitButton: '크레딧에 이름 남기기',
+      loading: '불러오는 중...',
+      specialThanks: 'Special Thanks',
+      thankYouLine1: 'Thank you for being',
+      thankYouLine2: 'part of our story.',
+      emptyTitle: '아직 크레딧에 이름을 남긴 분이 없습니다.',
+      emptySubtitle: '첫 번째 등장인물이 되어주세요 ✨',
+      pauseLabel: '방명록 롤링 일시정지',
+      resumeLabel: '방명록 롤링 재생',
+    },
+    guestbook: {
+      title: '크레딧에 이름 남기기',
+      subtitle: 'Leave Your Blessing',
+      nameLabel: '성함',
+      namePlaceholder: '성함을 입력해주세요',
+      messageLabel: '축하 메시지 (선택)',
+      messagePlaceholder: '따뜻한 한마디를 남겨주세요',
+      submit: '메시지 전송하기',
+      submitting: '전송 중...',
+    },
+    footer: {
+      title: 'Our Story',
+      copyrightPrefix: '©',
+      link: 'The End and The Beginning',
+    },
+  },
 } as const
+
+export type WeddingConfig = typeof weddingConfig

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { weddingConfig } from '../../config/wedding'
+import { weddingConfig } from '../../config'
 import { useResolvedImageSrc } from '../../hooks/useResolvedImageSrc'
 import { galleryLocalBase } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
@@ -29,7 +29,7 @@ function GalleryModalImage({ index }: { index: number }) {
 }
 
 export function GallerySection() {
-  const { gallery } = weddingConfig
+  const { gallery, ui } = weddingConfig
   const [selected, setSelected] = useState<number | null>(null)
 
   const close = useCallback(() => setSelected(null), [])
@@ -65,8 +65,8 @@ export function GallerySection() {
     <section id="gallery" className="px-container-margin mb-section-gap scroll-mt-24">
       <RevealOnScroll>
         <div className="text-center mb-8">
-          <p className="font-caption text-caption text-secondary uppercase tracking-widest mb-2">Gallery</p>
-          <h3 className="font-headline-lg text-headline-lg text-primary">Our Moments</h3>
+          <p className="font-caption text-caption text-secondary uppercase tracking-widest mb-2">{ui.gallery.label}</p>
+          <h3 className="font-headline-lg text-headline-lg text-primary">{ui.gallery.title}</h3>
         </div>
 
         <div className="grid grid-cols-3 gap-1 max-w-2xl mx-auto">
@@ -76,7 +76,7 @@ export function GallerySection() {
               type="button"
               onClick={() => setSelected(i)}
               className="relative aspect-square overflow-hidden bg-surface-dim"
-              aria-label={`사진 ${i + 1} 보기`}
+              aria-label={`${ui.gallery.viewPhoto} ${i + 1}`}
             >
               <WeddingImage
                 localBase={galleryLocalBase(i)}
@@ -104,7 +104,7 @@ export function GallerySection() {
               type="button"
               onClick={close}
               className="absolute top-6 right-6 z-10 text-white/80 hover:text-white p-2"
-              aria-label="닫기"
+              aria-label={ui.gallery.close}
             >
               <MaterialIcon icon="close" />
             </button>
@@ -116,7 +116,7 @@ export function GallerySection() {
                 prev()
               }}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 p-2 rounded-full text-white hover:bg-white/20 transition-colors"
-              aria-label="이전"
+              aria-label={ui.gallery.prev}
             >
               <MaterialIcon icon="chevron_left" />
             </button>
@@ -130,7 +130,7 @@ export function GallerySection() {
                 next()
               }}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 p-2 rounded-full text-white hover:bg-white/20 transition-colors"
-              aria-label="다음"
+              aria-label={ui.gallery.next}
             >
               <MaterialIcon icon="chevron_right" />
             </button>
