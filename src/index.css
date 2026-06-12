@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-on-background font-body-md overflow-x-hidden;
+    min-height: max(884px, 100dvh);
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    line-height: 1;
+  }
+
+  .glass-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-panel {
+    background: rgba(251, 249, 248, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .celestial-glow {
+    box-shadow: 0 0 15px 2px rgba(212, 175, 55, 0.15);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  }
+
+  .input-underline {
+    @apply border-b border-outline-variant bg-transparent w-full py-2;
+    transition: border-color 0.3s ease;
+  }
+
+  .input-underline:focus {
+    outline: none;
+    border-color: #735c00;
+  }
+
+  .archival-border {
+    border-top: 1px solid rgba(198, 198, 204, 0.3);
+  }
+
+  .mask-fade {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  }
+
+  .credits-container:hover .credits-animation {
+    animation-play-state: paused;
+  }
+}
