@@ -19,10 +19,6 @@ export function CreditsEnding({ animateIn = false, compact = false }: CreditsEnd
         <span className="h-px w-12 bg-outline-variant/40" />
       </div>
 
-      <p className="font-caption text-caption text-secondary uppercase tracking-[0.35em] mb-5">
-        {ending.prelude}
-      </p>
-
       <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary italic leading-relaxed mb-6">
         {ending.closing}
       </h3>

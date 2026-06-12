@@ -151,7 +151,6 @@ export const weddingConfig = {
       emptyTitle: '아직 축하 메시지를 남겨주신 분이 없습니다.',
       emptySubtitle: '첫 번째 축하를 남겨주세요 ✨',
       ending: {
-        prelude: '끝',
         closing: '축하해주신 모든 분들 감사합니다',
         theEnd: '— 끝 —',
         cheer: '앞으로도 많이 응원해주세요',

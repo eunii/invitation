@@ -61,7 +61,7 @@ function getLocalEntries(): GuestbookEntry[] {
     if (!raw) return []
     const entries: GuestbookEntry[] = JSON.parse(raw)
     return entries.sort(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
     )
   } catch {
     return []
@@ -76,7 +76,7 @@ function saveLocalEntry(entry: GuestbookInsert): GuestbookEntry {
     message: entry.message?.trim() || null,
     created_at: new Date().toISOString(),
   }
-  entries.unshift(newEntry)
+  entries.push(newEntry)
   localStorage.setItem(LOCAL_KEY, JSON.stringify(entries))
   return newEntry
 }
@@ -88,7 +88,7 @@ export async function fetchGuestbook(): Promise<GuestbookEntry[]> {
   const { data, error } = await supabase
     .from('guestbook')
     .select('id, name, message, created_at')
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: true })
 
   if (error) throw error
   return data ?? []

@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { addGuestbookEntry, fetchGuestbook } from '../lib/supabase'
 import type { GuestbookEntry, GuestbookInsert } from '../types/guestbook'
 
-function sortNewestFirst(entries: GuestbookEntry[]): GuestbookEntry[] {
+function sortByWrittenOrder(entries: GuestbookEntry[]): GuestbookEntry[] {
   return [...entries].sort(
-    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
   )
 }
 
@@ -29,7 +29,7 @@ export function useGuestbook() {
     setError(null)
     try {
       const data = await fetchGuestbook()
-      setEntries(sortNewestFirst(dedupeById(data)))
+      setEntries(sortByWrittenOrder(dedupeById(data)))
     } catch (e) {
       setError(e instanceof Error ? e.message : '방명록을 불러오지 못했습니다.')
     } finally {
@@ -48,7 +48,7 @@ export function useGuestbook() {
     setError(null)
     try {
       const newEntry = await addGuestbookEntry(entry)
-      setEntries((prev) => sortNewestFirst(dedupeById([newEntry, ...prev])))
+      setEntries((prev) => sortByWrittenOrder(dedupeById([...prev, newEntry])))
       return newEntry
     } catch (e) {
       const msg = e instanceof Error ? e.message : '메시지 전송에 실패했습니다.'

@@ -83,20 +83,30 @@
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: rgba(115, 92, 0, 0.35) transparent;
+    scrollbar-color: transparent transparent;
+  }
+
+  .credits-scroll-panel:hover,
+  .credits-scroll-panel:focus-within {
+    scrollbar-color: rgba(120, 120, 128, 0.12) transparent;
   }
 
   .credits-scroll-panel:focus-visible {
-    outline: 2px solid rgba(115, 92, 0, 0.35);
+    outline: 1px solid rgba(120, 120, 128, 0.2);
     outline-offset: 2px;
   }
 
   .credits-scroll-panel::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
   }
 
   .credits-scroll-panel::-webkit-scrollbar-thumb {
-    background: rgba(115, 92, 0, 0.35);
+    background: transparent;
     border-radius: 999px;
+  }
+
+  .credits-scroll-panel:hover::-webkit-scrollbar-thumb,
+  .credits-scroll-panel:focus-within::-webkit-scrollbar-thumb {
+    background: rgba(120, 120, 128, 0.12);
   }
 }

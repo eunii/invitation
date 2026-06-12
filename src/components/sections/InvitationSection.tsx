@@ -3,6 +3,7 @@ import { weddingConfig } from '../../config'
 import { LOCAL_IMAGE_BASES } from '../../lib/images'
 import { MaterialIcon } from '../ui/MaterialIcon'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
+import { WeddingCountdown } from '../ui/WeddingCountdown'
 import { WeddingImage } from '../ui/WeddingImage'
 
 const CONTENT_WIDTH = 'max-w-4xl mx-auto w-full'
@@ -60,14 +61,15 @@ export function InvitationSection() {
                 <p className="font-label-md text-label-md text-secondary uppercase tracking-widest">
                   {ui.info.whenLabel}
                 </p>
-                <h4 className="font-headline-lg text-headline-lg text-primary">{date.full}</h4>
+                <h4 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">{date.full}</h4>
                 <p className="font-body-md text-body-md text-outline">{date.time}</p>
+                <WeddingCountdown />
               </div>
               <div className="space-y-4 md:border-l md:border-outline-variant/30 md:pl-12">
                 <p className="font-label-md text-label-md text-secondary uppercase tracking-widest">
                   {ui.info.whereLabel}
                 </p>
-                <h4 className="font-headline-lg text-headline-lg text-primary">{venue.name}</h4>
+                <h4 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">{venue.name}</h4>
                 <p className="font-body-md text-body-md text-outline leading-relaxed">{venue.address}</p>
               </div>
             </div>
