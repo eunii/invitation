@@ -1,11 +1,31 @@
-import { AccountCard } from '../accounts/AccountCard'
+import { AccountGroup } from '../accounts/AccountGroup'
 import { useInviteVariant } from '../../context/InviteVariantContext'
 import { weddingConfig } from '../../config'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
 
 export function GiftSection() {
   const variant = useInviteVariant()
-  const { accounts, ui } = weddingConfig
+  const { accounts, couple, ui } = weddingConfig
+  const [groomFather, groomMother] = accounts.parents.groomSide
+  const [brideFather, brideMother] = accounts.parents.brideSide
+
+  const groomAccounts =
+    variant === 'couple'
+      ? [{ label: ui.gift.groom, account: { ...accounts.couple.groom, holder: couple.groom } }]
+      : [
+          { label: ui.gift.father, account: groomFather },
+          { label: ui.gift.mother, account: groomMother },
+          { label: ui.gift.groom, account: { ...accounts.couple.groom, holder: couple.groom } },
+        ]
+
+  const brideAccounts =
+    variant === 'couple'
+      ? [{ label: ui.gift.bride, account: { ...accounts.couple.bride, holder: couple.bride } }]
+      : [
+          { label: ui.gift.father, account: brideFather },
+          { label: ui.gift.mother, account: brideMother },
+          { label: ui.gift.bride, account: { ...accounts.couple.bride, holder: couple.bride } },
+        ]
 
   return (
     <section id="gift" className="px-container-margin mt-section-gap mb-section-gap max-w-4xl mx-auto scroll-mt-24">
@@ -15,31 +35,10 @@ export function GiftSection() {
           <p className="font-body-md text-body-md text-on-surface-variant">{ui.gift.description}</p>
         </div>
 
-        {variant === 'couple' ? (
-          <div className="grid md:grid-cols-2 gap-6">
-            <AccountCard label={ui.gift.groom} account={accounts.couple.groom} />
-            <AccountCard label={ui.gift.bride} account={accounts.couple.bride} />
-          </div>
-        ) : (
-          <div className="space-y-10">
-            <div>
-              <p className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-4">{ui.gift.groomSide}</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {accounts.parents.groomSide.map((account) => (
-                  <AccountCard key={account.role} label={account.role} account={account} />
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-4">{ui.gift.brideSide}</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {accounts.parents.brideSide.map((account) => (
-                  <AccountCard key={account.role} label={account.role} account={account} />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+        <div className="grid md:grid-cols-2 gap-6">
+          <AccountGroup sideLabel={ui.gift.groomSide} accounts={groomAccounts} />
+          <AccountGroup sideLabel={ui.gift.brideSide} accounts={brideAccounts} />
+        </div>
       </RevealOnScroll>
     </section>
   )

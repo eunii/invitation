@@ -1,7 +1,7 @@
 export const weddingConfig = {
   couple: {
-    bride: 'Json',
-    groom: 'Dani',
+    bride: '홍신랑',
+    groom: '김신부',
     display: 'Dani & Json',
   },
   tagline: 'Our Story Begins Here.',
@@ -50,8 +50,8 @@ export const weddingConfig = {
   ],
   accounts: {
     couple: {
-      groom: { bank: '신한은행', number: '110-123-456789', holder: '김철수' },
-      bride: { bank: '국민은행', number: '987654-01-123456', holder: '이영희' },
+      groom: { bank: '신한은행', number: '110-123-456789', holder: '호' },
+      bride: { bank: '국민은행', number: '987654-01-123456', holder: '홍신랑' },
     },
     parents: {
       groomSide: [
@@ -66,12 +66,12 @@ export const weddingConfig = {
   },
   parents: {
     groom: {
-      father: '홍길동',
-      mother: '김가나',
+      father: '홍아빠',
+      mother: '김엄마',
     },
     bride: {
-      father: '홍성일',
-      mother: '삼사오',
+      father: '이아빠',
+      mother: '삼엄마',
     },
   },
   invitation: {
@@ -136,9 +136,12 @@ export const weddingConfig = {
       description: '새로운 시작을 축복하며 보내주시는 따뜻한 마음 소중히 간직하겠습니다.',
       groom: '신랑',
       bride: '신부',
+      father: '아버지',
+      mother: '어머니',
       groomSide: '신랑측',
       brideSide: '신부측',
       reveal: '보기',
+      copy: '복사',
       copied: '복사됨',
       revealed: '표시됨',
     },

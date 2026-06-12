@@ -40,16 +40,20 @@ export function InvitationSection() {
         <RevealOnScroll>
           <div className="text-center space-y-4 py-4">
             <p className="font-body-lg text-body-lg text-primary tracking-wide">
-              <span className="text-on-surface-variant">{parents.groom.father}</span>
-              <span className="mx-2 text-outline-variant">|</span>
-              <span>{parents.groom.mother}의 아들</span>
-              <span className="ml-2 font-bold">{couple.groom}</span>
+              {parents.bride.father}
+              <span className="mx-2">|</span>
+              {parents.bride.mother}의 딸{' '}
+              <span className="font-headline-lg-mobile text-headline-lg-mobile font-bold">
+                {couple.bride}
+              </span>
             </p>
             <p className="font-body-lg text-body-lg text-primary tracking-wide">
-              <span className="text-on-surface-variant">{parents.bride.father}</span>
-              <span className="mx-2 text-outline-variant">|</span>
-              <span>{parents.bride.mother}의 딸</span>
-              <span className="ml-2 font-bold">{couple.bride}</span>
+              {parents.groom.father}
+              <span className="mx-2">|</span>
+              {parents.groom.mother}의 아들{' '}
+              <span className="font-headline-lg-mobile text-headline-lg-mobile font-bold">
+                {couple.groom}
+              </span>
             </p>
           </div>
         </RevealOnScroll>
@@ -61,8 +65,10 @@ export function InvitationSection() {
                 <p className="font-label-md text-label-md text-secondary uppercase tracking-widest">
                   {ui.info.whenLabel}
                 </p>
-                <h4 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">{date.full}</h4>
-                <p className="font-body-md text-body-md text-outline">{date.time}</p>
+                <h4 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
+                  {date.full}
+                  <span className="text-outline"> {date.time}</span>
+                </h4>
                 <WeddingCountdown />
               </div>
               <div className="space-y-4 md:border-l md:border-outline-variant/30 md:pl-12">
