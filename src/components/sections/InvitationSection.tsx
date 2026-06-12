@@ -74,33 +74,14 @@ export function InvitationSection() {
               </div>
             </div>
 
-            <div className="space-y-8 text-center">
+            <div className="space-y-8 text-left">
               <div className="space-y-4">
-                <div className="flex items-center justify-center gap-3">
-                  <MaterialIcon icon="location_on" className="text-secondary" />
-                  <h5 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
-                    {ui.location.directionsTitle}
-                  </h5>
-                </div>
-                <div className="flex flex-wrap justify-center gap-3">
-                  {mapLinks.map((map) => (
-                    <a
-                      key={map.label}
-                      href={map.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-5 py-2.5 border border-outline-variant font-label-md text-label-md rounded hover:bg-surface-variant transition-colors"
-                    >
-                      {map.label}
-                    </a>
-                  ))}
-                </div>
                 <a
                   id="map"
                   href={venue.maps.google}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative block aspect-[4/3] mt-4 rounded-lg overflow-hidden bg-surface-dim group scroll-mt-24"
+                  className="relative block aspect-[4/3] rounded-lg overflow-hidden bg-surface-dim group scroll-mt-24"
                 >
                   <WeddingImage
                     localBase={LOCAL_IMAGE_BASES.mapImage}
@@ -115,10 +96,29 @@ export function InvitationSection() {
                     </div>
                   </div>
                 </a>
+                <div className="flex items-center gap-3">
+                  <MaterialIcon icon="location_on" className="text-secondary" />
+                  <h5 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
+                    {ui.location.directionsTitle}
+                  </h5>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {mapLinks.map((map) => (
+                    <a
+                      key={map.label}
+                      href={map.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-5 py-2.5 border border-outline-variant font-label-md text-label-md rounded hover:bg-surface-variant transition-colors"
+                    >
+                      {map.label}
+                    </a>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center gap-3">
                   <MaterialIcon icon="directions_car" className="text-secondary" />
                   <h5 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
                     {ui.location.parkingTitle}
@@ -130,7 +130,7 @@ export function InvitationSection() {
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center gap-3">
                   <MaterialIcon icon="local_taxi" className="text-secondary" />
                   <h5 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
                     {ui.location.shuttleTitle}

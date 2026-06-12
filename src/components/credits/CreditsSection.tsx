@@ -26,21 +26,11 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
         />
       </div>
 
-      <div className="relative z-10 px-container-margin flex justify-between items-center mb-8">
-        <div className="text-center flex-1">
-          <p className="font-caption text-caption text-secondary tracking-widest uppercase mb-2">
-            {ui.credits.label}
-          </p>
-          <h2 className="font-display-md text-display-md text-primary italic">{ui.credits.title}</h2>
-        </div>
-        <button
-          type="button"
-          onClick={onOpenModal}
-          className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md hover:opacity-80 transition-opacity celestial-glow shrink-0"
-        >
-          <MaterialIcon icon="edit" className="text-[20px]" />
-          <span className="hidden sm:inline">{ui.credits.submitButton}</span>
-        </button>
+      <div className="relative z-10 px-container-margin mb-8 text-center">
+        <p className="font-caption text-caption text-secondary tracking-widest uppercase mb-2">
+          {ui.credits.label}
+        </p>
+        <h2 className="font-display-md text-display-md text-primary italic">{ui.credits.title}</h2>
       </div>
 
       <div className="relative z-10 flex-grow flex flex-col items-center">
@@ -49,6 +39,17 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
         ) : (
           <CreditsScroll entries={entries} />
         )}
+      </div>
+
+      <div className="relative z-10 px-container-margin mt-8 flex justify-center">
+        <button
+          type="button"
+          onClick={onOpenModal}
+          className="flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-full font-label-md text-label-md hover:opacity-80 transition-opacity celestial-glow"
+        >
+          <MaterialIcon icon="edit" className="text-[20px]" />
+          <span>{ui.credits.submitButton}</span>
+        </button>
       </div>
     </section>
   )
