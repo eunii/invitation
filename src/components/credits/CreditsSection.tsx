@@ -45,8 +45,8 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
           <p className="font-body-md text-outline animate-pulse">불러오는 중...</p>
         ) : (
           <>
-            <div className="text-center mb-6 pointer-events-none">
-              <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary italic">Special Thanks</h3>
+            <div className="text-center mb-4 pointer-events-none">
+              <h3 className="font-label-md text-label-md text-secondary uppercase tracking-widest">Special Thanks</h3>
             </div>
             <CreditsScroll entries={entries} />
             <div className="text-center mt-8 pointer-events-none">

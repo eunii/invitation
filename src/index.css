@@ -54,7 +54,35 @@
     mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
   }
 
-  .credits-container:hover .credits-animation {
+  .credits-scroll-set {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .credits-scroll-set + .credits-scroll-set {
+    margin-top: 0.75rem;
+  }
+
+  .credits-scroll-track {
+    display: flex;
+    flex-direction: column;
+    animation: creditsScroll 20s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  @keyframes creditsScroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, -50%, 0);
+    }
+  }
+
+  .credits-scroll-track--paused {
     animation-play-state: paused;
   }
 }
