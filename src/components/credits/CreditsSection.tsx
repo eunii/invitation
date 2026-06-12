@@ -52,13 +52,6 @@ export function CreditsSection({ entries, loading, onOpenModal }: CreditsSection
               <h3 className="font-label-md text-label-md text-secondary uppercase tracking-widest">{ui.credits.specialThanks}</h3>
             </div>
             <CreditsScroll entries={entries} />
-            <div className="text-center mt-8 pointer-events-none">
-              <p className="font-body-md text-body-md text-on-surface-variant italic">
-                {ui.credits.thankYouLine1}
-                <br />
-                {ui.credits.thankYouLine2}
-              </p>
-            </div>
           </>
         )}
       </div>

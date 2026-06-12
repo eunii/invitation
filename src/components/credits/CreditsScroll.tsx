@@ -1,103 +1,315 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
 import { weddingConfig } from '../../config'
+
 import type { GuestbookEntry } from '../../types/guestbook'
 
+import { CreditsEnding } from './CreditsEnding'
+
+
+
 interface CreditsScrollProps {
+
   entries: GuestbookEntry[]
+
 }
 
-type LoopedEntry = GuestbookEntry & { loopKey: string }
+
 
 function CreditItem({ entry }: { entry: GuestbookEntry }) {
+
   return (
-    <div className="text-center group px-2 shrink-0">
+
+    <div className="text-center px-2 shrink-0 py-2">
+
       <p className="font-label-md text-[17px] leading-tight text-primary">{entry.name}</p>
+
       {entry.message && (
-        <p className="font-caption text-[13px] leading-snug text-on-surface-variant/80 mt-0.5 line-clamp-2 max-w-xs mx-auto">
+
+        <p className="font-caption text-[13px] leading-snug text-on-surface-variant/80 mt-1 line-clamp-3 max-w-xs mx-auto">
+
           {entry.message}
+
         </p>
+
       )}
+
     </div>
+
   )
+
 }
 
-function CreditsSet({ items }: { items: LoopedEntry[] }) {
-  return (
-    <div className="credits-scroll-set">
-      {items.map((entry) => (
-        <CreditItem key={entry.loopKey} entry={entry} />
-      ))}
-    </div>
-  )
+
+
+function scrollDurationMs(entryCount: number): number {
+
+  return Math.min(36_000, Math.max(12_000, entryCount * 2_500 + 8_000))
+
 }
 
-/** 한 세트가 충분히 길어지도록 반복 — 짧은 목록에서도 끊김 없이 롤링 */
-function buildLoopSet(entries: GuestbookEntry[], minItems = 18): LoopedEntry[] {
-  if (entries.length === 0) return []
 
-  const repeat = Math.max(1, Math.ceil(minItems / entries.length))
-  return Array.from({ length: repeat }, (_, repeatIndex) =>
-    entries.map((entry, entryIndex) => ({
-      ...entry,
-      loopKey: `${entry.id}-${repeatIndex}-${entryIndex}`,
-    })),
-  ).flat()
+
+function easeInOutCubic(t: number): number {
+
+  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
+
 }
+
+
 
 export function CreditsScroll({ entries }: CreditsScrollProps) {
+
   const { ui } = weddingConfig
-  const loopSet = useMemo(
-    () => (entries.length === 0 ? [] : buildLoopSet(entries)),
+
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const frameRef = useRef<number | null>(null)
+
+  const userControlRef = useRef(false)
+
+  const [autoPlaying, setAutoPlaying] = useState(true)
+
+  const [finished, setFinished] = useState(false)
+
+
+
+  const sortedEntries = useMemo(
+
+    () => [...entries].sort((a, b) => a.name.localeCompare(b.name, 'ko')),
+
     [entries],
+
   )
-  const [paused, setPaused] = useState(false)
+
+
+
+  const stopAuto = useCallback(() => {
+
+    if (userControlRef.current) return
+
+    userControlRef.current = true
+
+    if (frameRef.current !== null) {
+
+      cancelAnimationFrame(frameRef.current)
+
+      frameRef.current = null
+
+    }
+
+    setAutoPlaying(false)
+
+  }, [])
+
+
 
   useEffect(() => {
-    if (!paused) return
 
-    const resume = () => setPaused(false)
+    const el = containerRef.current
 
-    window.addEventListener('scroll', resume, { passive: true })
-    window.addEventListener('wheel', resume, { passive: true })
-    window.addEventListener('touchmove', resume, { passive: true })
+    if (!el || sortedEntries.length === 0) return
+
+
+
+    userControlRef.current = false
+
+    setAutoPlaying(true)
+
+    setFinished(false)
+
+    el.scrollTop = 0
+
+
+
+    let started = false
+
+
+
+    const startAuto = () => {
+
+      if (started || userControlRef.current) return
+
+
+
+      const maxScroll = el.scrollHeight - el.clientHeight
+
+      if (maxScroll <= 0) {
+
+        setFinished(true)
+
+        setAutoPlaying(false)
+
+        return
+
+      }
+
+
+
+      started = true
+
+      const duration = scrollDurationMs(sortedEntries.length)
+
+      const startTime = performance.now()
+
+
+
+      const tick = (now: number) => {
+
+        if (userControlRef.current) return
+
+
+
+        const progress = Math.min(1, (now - startTime) / duration)
+
+        el.scrollTop = maxScroll * easeInOutCubic(progress)
+
+
+
+        if (progress < 1) {
+
+          frameRef.current = requestAnimationFrame(tick)
+
+        } else {
+
+          frameRef.current = null
+
+          setFinished(true)
+
+          setAutoPlaying(false)
+
+        }
+
+      }
+
+
+
+      frameRef.current = requestAnimationFrame(tick)
+
+    }
+
+
+
+    const observer = new ResizeObserver(() => startAuto())
+
+    observer.observe(el)
+
+    requestAnimationFrame(() => startAuto())
+
+
+
+    const onUserIntent = () => stopAuto()
+
+
+
+    el.addEventListener('wheel', onUserIntent, { passive: true })
+
+    el.addEventListener('touchstart', onUserIntent, { passive: true })
+
+    el.addEventListener('pointerdown', onUserIntent)
+
+    el.addEventListener('keydown', onUserIntent)
+
+
 
     return () => {
-      window.removeEventListener('scroll', resume)
-      window.removeEventListener('wheel', resume)
-      window.removeEventListener('touchmove', resume)
-    }
-  }, [paused])
 
-  if (entries.length === 0) {
+      observer.disconnect()
+
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current)
+
+      el.removeEventListener('wheel', onUserIntent)
+
+      el.removeEventListener('touchstart', onUserIntent)
+
+      el.removeEventListener('pointerdown', onUserIntent)
+
+      el.removeEventListener('keydown', onUserIntent)
+
+    }
+
+  }, [sortedEntries, stopAuto])
+
+
+
+  if (sortedEntries.length === 0) {
+
     return (
-      <div className="text-center py-16">
-        <p className="font-body-lg text-body-lg text-outline italic">{ui.credits.emptyTitle}</p>
-        <p className="font-caption text-caption text-secondary mt-2">{ui.credits.emptySubtitle}</p>
+
+      <div className="w-full max-w-xl px-container-margin">
+
+        <div className="text-center py-8">
+
+          <p className="font-body-lg text-body-lg text-outline italic mb-2">{ui.credits.emptyTitle}</p>
+
+          <p className="font-caption text-caption text-secondary">{ui.credits.emptySubtitle}</p>
+
+        </div>
+
+        <CreditsEnding animateIn compact />
+
       </div>
+
     )
+
   }
 
+
+
   return (
-    <div
-      className="credits-container w-full max-w-xl px-container-margin flex-grow overflow-hidden relative z-10 mask-fade h-[65vh] min-h-[420px] cursor-pointer select-none"
-      onClick={() => setPaused((p) => !p)}
-      role="button"
-      tabIndex={0}
-      aria-pressed={paused}
-      aria-label={paused ? ui.credits.resumeLabel : ui.credits.pauseLabel}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          setPaused((p) => !p)
-        }
-      }}
-    >
-      <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-background to-transparent z-20 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-background to-transparent z-20 pointer-events-none" />
-      <div className={`credits-scroll-track${paused ? ' credits-scroll-track--paused' : ''}`}>
-        <CreditsSet items={loopSet} />
-        <CreditsSet items={loopSet} />
+
+    <div className="w-full max-w-xl px-container-margin flex flex-col items-center">
+
+      <div className="credits-scroll-shell relative w-full z-10">
+
+        <div
+
+          ref={containerRef}
+
+          className="credits-scroll-panel h-[58vh] min-h-[380px] w-full overflow-y-auto overscroll-contain"
+
+          tabIndex={0}
+
+          aria-label={ui.credits.panelLabel}
+
+        >
+
+          <div className="credits-scroll-set credits-scroll-set--names px-2 pt-14">
+
+            {sortedEntries.map((entry) => (
+
+              <CreditItem key={entry.id} entry={entry} />
+
+            ))}
+
+          </div>
+
+          <CreditsEnding compact />
+
+        </div>
+
       </div>
+
+
+
+      <p
+
+        className={`font-caption text-caption mt-4 tracking-widest uppercase text-center ${
+
+          autoPlaying ? 'text-outline-variant animate-pulse' : 'text-secondary'
+
+        }`}
+
+      >
+
+        {autoPlaying ? ui.credits.scrolling : finished ? ui.credits.finished : ui.credits.scrollHint}
+
+      </p>
+
     </div>
+
   )
+
 }
+
+

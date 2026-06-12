@@ -44,7 +44,7 @@ export function GuestbookModal({ open, onClose, onSubmit, submitting }: Guestboo
             <div className="flex justify-between items-start mb-8">
               <div>
                 <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
-                  🎬 {ui.guestbook.title}
+                  {ui.guestbook.title}
                 </h3>
                 <p className="font-caption text-caption text-secondary uppercase tracking-widest mt-1">
                   {ui.guestbook.subtitle}
