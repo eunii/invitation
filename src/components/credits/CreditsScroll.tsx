@@ -7,12 +7,12 @@ interface CreditsScrollProps {
 function CreditItem({ entry }: { entry: GuestbookEntry }) {
   return (
     <div className="text-center group">
-      <p className="font-caption text-caption text-outline mb-2 uppercase tracking-tighter">
+      <p className="font-caption text-[10px] text-outline mb-1 uppercase tracking-tighter">
         Special Thanks
       </p>
-      <h3 className="font-headline-lg text-headline-lg text-primary mb-4">{entry.name}</h3>
+      <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-2">{entry.name}</h3>
       {entry.message && (
-        <p className="font-body-lg text-body-lg italic text-on-surface-variant max-w-md mx-auto">
+        <p className="font-body-md text-body-md italic text-on-surface-variant max-w-sm mx-auto">
           &ldquo;{entry.message}&rdquo;
         </p>
       )}
@@ -37,10 +37,10 @@ export function CreditsScroll({ entries }: CreditsScrollProps) {
   const doubled = [...entries, ...entries]
 
   return (
-    <div className="credits-container w-full max-w-2xl px-container-margin flex-grow overflow-hidden relative z-10 mask-fade">
+    <div className="credits-container w-full max-w-2xl px-container-margin flex-grow overflow-hidden relative z-10 mask-fade h-[50vh] min-h-[320px]">
       <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-background to-transparent z-20" />
       <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background to-transparent z-20" />
-      <div className="credits-animation space-y-16 py-32">
+      <div className="credits-animation animate-scroll-up space-y-10 py-20">
         {doubled.map((entry, i) => (
           <CreditItem key={`${entry.id}-${i}`} entry={entry} />
         ))}

@@ -1,6 +1,6 @@
 import { MaterialIcon } from '../ui/MaterialIcon'
 
-export type SectionId = 'home' | 'story' | 'details' | 'credits'
+export type SectionId = 'home' | 'gallery' | 'map' | 'guestbook'
 
 interface HeaderProps {
   active: SectionId
@@ -9,10 +9,10 @@ interface HeaderProps {
 }
 
 const navItems: { id: SectionId; label: string }[] = [
-  { id: 'home', label: 'Home' },
-  { id: 'story', label: 'Gallery' },
-  { id: 'details', label: 'Schedule' },
-  { id: 'credits', label: 'Credits' },
+  { id: 'home', label: '홈' },
+  { id: 'gallery', label: '갤러리' },
+  { id: 'map', label: '맵' },
+  { id: 'guestbook', label: '방명록' },
 ]
 
 export function Header({ active, onNavigate, onOpenGuestbook }: HeaderProps) {
@@ -32,7 +32,7 @@ export function Header({ active, onNavigate, onOpenGuestbook }: HeaderProps) {
           <button
             key={item.id}
             type="button"
-            onClick={() => (item.id === 'credits' ? onOpenGuestbook() : onNavigate(item.id))}
+            onClick={() => (item.id === 'guestbook' ? onOpenGuestbook() : onNavigate(item.id))}
             className={`font-label-md text-label-md transition-opacity hover:opacity-80 ${
               active === item.id ? 'text-secondary font-bold' : 'text-outline'
             }`}

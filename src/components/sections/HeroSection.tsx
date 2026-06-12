@@ -10,7 +10,7 @@ export function HeroSection({ onEnter }: HeroSectionProps) {
   const { couple, subtitle, date, venue, heroImage } = weddingConfig
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-end items-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex flex-col justify-end items-center overflow-hidden scroll-mt-24">
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}

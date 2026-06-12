@@ -39,8 +39,20 @@ export const weddingConfig = {
     'https://lh3.googleusercontent.com/aida-public/AB6AXuBjfiJXFgTGo_CVzQpGt3xvctgCe46oSbtgb9JPblcLwi7TGEGE_Ve7qj5NJr8Gt77Wg9EMj5TY_8gyufriRRHDUzMRVyXFn7XG8-_LAsagBewEOT3KyAAdH1a3Txi34aUlRx8jPqdcWf-LSwOqIS9xk1ffyfoaYWTETsqmPnqOfdpqlRUetVbCxIcF9Q0drgz23i1mSEmqdOaMS3yws7WHrcGcdEvGIIky9NMfSpevhsogiRBkTItUiXwwJM7UcH9dJ7wz4K3Z0yE',
   ],
   accounts: {
-    groom: { bank: '신한은행', number: '110-123-456789', holder: '김철수' },
-    bride: { bank: '국민은행', number: '987654-01-123456', holder: '이영희' },
+    couple: {
+      groom: { bank: '신한은행', number: '110-123-456789', holder: '김철수' },
+      bride: { bank: '국민은행', number: '987654-01-123456', holder: '이영희' },
+    },
+    parents: {
+      groomSide: [
+        { role: '신랑 아버지', bank: '신한은행', number: '110-111-111111', holder: '김아버지' },
+        { role: '신랑 어머니', bank: '신한은행', number: '110-222-222222', holder: '김어머니' },
+      ],
+      brideSide: [
+        { role: '신부 아버지', bank: '국민은행', number: '987654-11-111111', holder: '이아버지' },
+        { role: '신부 어머니', bank: '국민은행', number: '987654-22-222222', holder: '이어머니' },
+      ],
+    },
   },
   invitation: {
     formal: {

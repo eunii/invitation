@@ -5,7 +5,7 @@ export function WeddingInfoSection() {
   const { date, venue } = weddingConfig
 
   return (
-    <section id="details" className="px-container-margin mt-section-gap py-section-gap bg-surface">
+    <section className="px-container-margin mt-section-gap py-section-gap bg-surface">
       <RevealOnScroll>
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left">
           <div className="space-y-4">

@@ -86,7 +86,7 @@ export default {
         'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
       },
       animation: {
-        'scroll-up': 'scrollUp 40s linear infinite',
+        'scroll-up': 'scrollUp 22s linear infinite',
         'star-pulse': 'starPulse 3s ease-in-out infinite',
       },
       keyframes: {

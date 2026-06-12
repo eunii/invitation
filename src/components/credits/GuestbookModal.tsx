@@ -15,6 +15,7 @@ export function GuestbookModal({ open, onClose, onSubmit, submitting }: Guestboo
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (submitting) return
     await onSubmit({ name, message })
     setName('')
     setMessage('')

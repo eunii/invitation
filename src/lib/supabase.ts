@@ -22,7 +22,11 @@ const LOCAL_KEY = 'wedding-credits-guestbook'
 function getLocalEntries(): GuestbookEntry[] {
   try {
     const raw = localStorage.getItem(LOCAL_KEY)
-    return raw ? JSON.parse(raw) : []
+    if (!raw) return []
+    const entries: GuestbookEntry[] = JSON.parse(raw)
+    return entries.sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    )
   } catch {
     return []
   }

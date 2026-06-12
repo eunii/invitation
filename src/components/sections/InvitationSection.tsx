@@ -1,12 +1,15 @@
+import { useInviteVariant } from '../../context/InviteVariantContext'
 import { weddingConfig } from '../../config/wedding'
 import { MaterialIcon } from '../ui/MaterialIcon'
 import { RevealOnScroll } from '../ui/RevealOnScroll'
 
 export function InvitationSection() {
+  const variant = useInviteVariant()
   const { invitation, cinematicImage } = weddingConfig
+  const content = variant === 'parents' ? invitation.formal : invitation.casual
 
   return (
-    <section id="story" className="px-container-margin mb-section-gap pt-section-gap">
+    <section className="px-container-margin mb-section-gap pt-section-gap">
       <RevealOnScroll>
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg mb-section-gap">
           <img
@@ -23,30 +26,14 @@ export function InvitationSection() {
         </div>
       </RevealOnScroll>
 
-      <div className="space-y-section-gap max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <RevealOnScroll>
           <div className="text-center bg-surface-container-low p-10 rounded-lg archival-border">
             <MaterialIcon icon="menu_book" className="text-secondary mb-4" />
-            <h3 className="font-headline-lg text-headline-lg text-primary mb-6">
-              {invitation.formal.title}
-            </h3>
+            <h3 className="font-headline-lg text-headline-lg text-primary mb-6">{content.title}</h3>
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed italic">
-              {invitation.formal.text}
+              {content.text}
             </p>
-          </div>
-        </RevealOnScroll>
-
-        <RevealOnScroll>
-          <div className="text-center py-8">
-            <h3 className="font-headline-lg text-headline-lg text-secondary mb-4">
-              {invitation.casual.title}
-            </h3>
-            <p className="font-body-lg text-body-lg text-on-background max-w-2xl mx-auto">
-              {invitation.casual.text}
-            </p>
-            <div className="mt-8 flex justify-center">
-              <div className="w-12 h-px bg-outline-variant" />
-            </div>
           </div>
         </RevealOnScroll>
       </div>

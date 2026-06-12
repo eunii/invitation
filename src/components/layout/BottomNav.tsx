@@ -9,9 +9,9 @@ interface BottomNavProps {
 
 const items: { id: SectionId; icon: string; filled?: boolean }[] = [
   { id: 'home', icon: 'home' },
-  { id: 'story', icon: 'auto_stories' },
-  { id: 'details', icon: 'event_available' },
-  { id: 'credits', icon: 'stars', filled: true },
+  { id: 'gallery', icon: 'photo_library' },
+  { id: 'map', icon: 'location_on' },
+  { id: 'guestbook', icon: 'menu_book', filled: true },
 ]
 
 export function BottomNav({ active, onNavigate, onOpenGuestbook }: BottomNavProps) {
@@ -23,7 +23,7 @@ export function BottomNav({ active, onNavigate, onOpenGuestbook }: BottomNavProp
           <button
             key={item.id}
             type="button"
-            onClick={() => (item.id === 'credits' ? onOpenGuestbook() : onNavigate(item.id))}
+            onClick={() => (item.id === 'guestbook' ? onOpenGuestbook() : onNavigate(item.id))}
             className={`flex flex-col items-center justify-center transition-all ${
               isActive
                 ? 'text-secondary scale-110'

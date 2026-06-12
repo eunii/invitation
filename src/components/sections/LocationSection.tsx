@@ -6,7 +6,7 @@ export function LocationSection() {
   const { venue, mapImage } = weddingConfig
 
   return (
-    <section className="px-container-margin mt-section-gap max-w-6xl mx-auto">
+    <section id="map" className="px-container-margin mt-section-gap max-w-6xl mx-auto scroll-mt-24">
       <RevealOnScroll>
         <div className="grid lg:grid-cols-2 gap-gutter items-center">
           <a
@@ -31,7 +31,7 @@ export function LocationSection() {
           <div className="lg:pl-12 space-y-12">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <MaterialIcon icon="map" className="text-secondary" />
+                <MaterialIcon icon="location_on" className="text-secondary" />
                 <h5 className="font-headline-lg-mobile text-headline-lg-mobile">오시는 길</h5>
               </div>
               <div className="flex flex-wrap gap-3">
